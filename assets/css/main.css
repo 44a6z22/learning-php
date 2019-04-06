@@ -1,0 +1,22 @@
+div.row:nth-child(2n) {
+  margin-top: 40px;
+}
+
+.row .profile-head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.row .profile-head a {
+  padding: 20px 20px 0px 10px;
+}
+
+.row .profile-head .profile-pic {
+  height: 100px;
+  width: 100px;
+}
+/*# sourceMappingURL=main.css.map */
