@@ -18,7 +18,7 @@
             if(isset($_GET['Error'])){
 
                 $err = intval($_GET['Error']); 
-                if($err == 4 ) include("php/errors/err.php");
+                nclude("php/view/errors/err.php");
             }
         ?>
         <div class="row justify-content-center">

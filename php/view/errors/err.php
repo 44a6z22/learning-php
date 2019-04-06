@@ -2,6 +2,9 @@
 function error($err){
     $res = ""; 
     switch($err){
+        case 0 :
+            $res = Errors::$USER_NOT_FOUND; 
+            break ; 
         case 1 :
             $res = Errors::$MAX_SIZE; 
             break ; 

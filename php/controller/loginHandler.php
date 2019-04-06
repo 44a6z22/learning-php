@@ -1,8 +1,7 @@
-<?php
+<?php   
+    
     require("../config.php");
-    
-    session_start();
-    
+    session_start();    
     if(isset($_POST['login'])){
 
         $user = new User($_POST['username'], $_POST['password']);
@@ -15,11 +14,11 @@
             if (!file_exists("../upload/".$_SESSION['userLogin'])) { // cheking if a folder is already exist or not 
                     mkdir("../upload/".$_SESSION['userLogin'], 0777, true);
             }
-        
+            
             header('location: ../../');
             
         }else{
-            echo "something went wrong !!";
+            header('location: ../../register.php?Error=0');
         }
         
     }else{

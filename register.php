@@ -1,4 +1,5 @@
 <?php
+    require("php/config.php");
     session_start();
     if(isset($_SESSION['userLogin'])){
         header('location: ./');
@@ -19,6 +20,12 @@
 </head>
 <body>
     <div class="container-fluid">
+        <?php
+            if(isset($_GET['Error'])){
+                $err = intval($_GET['Error']); 
+                include("php/view/errors/err.php");
+            }
+        ?>
         <div class="row justify-content-center">
             <a href="?action=register">REGISTER</a>
             <a href="?action=login">LOGIN</a>
