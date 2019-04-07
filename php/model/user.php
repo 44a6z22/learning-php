@@ -5,9 +5,8 @@
         private $firstName;
         private $lastName; 
         private $email; 
-        private $phoneNumber = "098765432345678"; 
-        private $adress = "jshdfhlk sdoyuf sdfus dl"; 
         private $password;
+        private $userBirthDate ; // YYYY/MM/DD
 
         // making a constructor for the user Class 
         public function __construct(){
@@ -17,12 +16,13 @@
                 call_user_func_array(array($this,$f),$args);
             }
         }
-        public function init_5($userName, $firstName, $lastName, $email, $password){
+        public function init_6($userName, $firstName, $lastName, $email, $password, $db){
             $this->userName = $userName; 
             $this->firstName = $firstName; 
             $this->lastName = $lastName; 
             $this->email = $email;
             $this->password = $password;
+            $this->userBirthDate = $db; 
         }
         public function init_2($userName, $password){
             $this->userName = $userName;
@@ -53,15 +53,12 @@
         public function getPassword(){
             return $this->password;
         }
-        public function getPhoneNumber(){
-            return $this->phoneNumber;
-        }
-        public function getAdress(){
-            return $this->adress;
+        public function getBirthDate(){
+            return $this->userBirthDate;
         }
 
         public function getUserIdFromDB($connection){
-            $query = "SELECT userId FROM users WHERE userName = :username AND  userPassword = :password"; 
+            $query = "SELECT userId FROM users WHERE userUserName = :username AND  userPassword = :password"; 
             $stmt = $connection->prepare($query); 
             $params = [
                 ':username' => $this->getUserName() , 
@@ -81,10 +78,11 @@
             ]; 
             $stmt->execute($params); 
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-            $this->userName = $res[0]['userName']; 
+            $this->userName = $res[0]['userUserName']; 
             $this->firstName = $res[0]['userFirstName']; 
             $this->lastName = $res[0]['userLastName']; 
-            $this->email = $res[0]['userEmail']; 
+            $this->email = $res[0]['userEmail'];
+            $this->BirthDate = $res[0]['userBirthDate']; 
         }
        
         public function validate($type){
@@ -96,9 +94,9 @@
                     $result = true ; 
                 }
            }else if($type == "register"){
-                if($this->getUserName() == "" || $this->getFirstName() == "" || $this->getLastName() == "" || $this->getEmail() == "" || $this->getPassword() == "" ){
+                if($this->getUserName() == "" || $this->getFirstName() == "" || $this->getLastName() == "" || $this->getEmail() == "" || $this->getPassword() == "" || $this->getBirthDate() == "" ){
                     $result = false; 
-                }else {
+                }else{
                     $result = true; 
                 }
            }

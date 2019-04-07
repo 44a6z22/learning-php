@@ -130,10 +130,16 @@
 												<div class="info-wrap">
 													<h1><?php echo $user->getFirstName() ." ". $user->getLastName();?></h1>
 													<h5 class="mt-20 font-grey"></h5>
-													<div class="mt-30">
-														<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
-														<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-green font-white" href="#contact_sec" data-scroll>contact</a>
-													</div>
+													<?php
+														if($id != $_SESSION['userLogin']){
+													?>
+														<div class="mt-30">
+															<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
+															<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-green font-white" href="#contact_sec" data-scroll>contact</a>
+														</div>
+													<?php	
+														}
+													?>
 												</div>
 												<ul class="profile-wrap mt-50">
 													<li>
@@ -143,7 +149,7 @@
 													<li>
 														<div class="profile-title">address</div>
 														<div class="profile-desc">
-															<?php echo $user->getAdress();?>
+															
 														</div>
 													</li>
 													<li>
@@ -155,7 +161,6 @@
 													<li>
 														<div class="profile-title">phone</div>
 														<div class="profile-desc">
-															<?php echo $user->getPhoneNumber();?>
 														</div>
 													</li>
 													

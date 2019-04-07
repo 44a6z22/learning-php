@@ -4,10 +4,10 @@ USE library ;
 
 CREATE TABLE users(
     userId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    userUserName VARCHAR(50), 
+    userUserName VARCHAR(50) UNIQUE, 
     userFirstName VARCHAR(30), 
     userLastName VARCHAR(30),
-    userEmail VARCHAR(50),
+    userEmail VARCHAR(50) UNIQUE,
     userPassword VARCHAR(30),
     userBirthDate DATE
 ); 
@@ -15,8 +15,9 @@ CREATE TABLE users(
 CREATE TABLE books(
     bookId INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
     bookTitle VARCHAR(30),
-    bookUploadDate DATE, 
     bookAuthor INT ,
+    bookPages INT,
+    bookUploadDate DATE, 
     FOREIGN KEY (bookAuthor) REFERENCES users(userId)
 );
 
@@ -59,10 +60,8 @@ CREATE TABLE accounts(
 
 
 INSERT INTO accountTypes VALUES(NULL, "ADMIN"),
-							(NULL, "READER"), 
-							(NULL, "WRITER");
-                            
-ALTER TABLE books ADD COLUMN bookPages INT ;
+							    (NULL, "READER"), 
+							    (NULL, "WRITER");
 
 INSERT INTO users VALUES(NULL, "44a6z2", "hamza", "hamdaoui", "hhamdaoui31@gmail.com", "Hamza-_-", "1996/07/09"),
 						(NULL, "Mza__", "achraf", "nafidi", "hhamdaoui31@gmail.com", "Hamza-_-", "1997/09/07"),
@@ -72,13 +71,26 @@ INSERT INTO users VALUES(NULL, "44a6z2", "hamza", "hamdaoui", "hhamdaoui31@gmail
 INSERT INTO followers VALUES(2,5),
 							(3,5),
                             (4,5);
-                            
-SELECT * FROM books;
+
 INSERT INTO books VALUES(NULL,"high way to hell", curdate(),5, 399),
 							(NULL,"stairway to heaven", curdate(),5, 300),
 							(NULL,"arduino for beginers", curdate(),4, 400);
-                            
-                            
-	-- JOINS --
-SELECT u.userUserName , count(*) FROM books b INNER JOIN users u ON b.bookAuthor = u.userId Where u.userId = 4; -- how many books a user has published 
-SELECT u.userFirstName , count(*) FROM followers f INNER JOIN users u ON u.userID  = f.followedId WHERE u.userId = 5;  -- how many followers a user have 
+
+INSERT INTO accounts VALUES(NULL,5,1,curdate()),                            
+                            (NULL,4,3,curdate());
+
+-- JOINS --
+SELECT u.userUserName , count(*)
+    FROM books b INNER JOIN users u ON b.bookAuthor = u.userId
+    Where u.userId = 4; -- how many books a user has published 
+
+
+SELECT u.userFirstName , count(*)
+    FROM followers f INNER JOIN users u ON u.userID  = f.followedId
+    WHERE u.userId = 5; -- how many followers a user have 
+
+-- getting what type of accounts a user have 
+SELECT u.userFirstName AS firstname , t.accountTypeTitle AS accountType
+    FROM accounts a INNER JOIN users u ON u.userId = a.accountOwner
+        INNER JOIN accountTypes t ON a.accountType = t.accountTypeId
+        WHERE u.userUserName =  "44a6z2" ;
