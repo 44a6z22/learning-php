@@ -4,11 +4,12 @@
         header('location: register.php');
     }
     include "php/config.php";
+    $id = $_SESSION['userLogin'];
     $user = new User(); 
-    $user->setUserData($connection, $_SESSION['userLogin']);
+    $user->setUserData($connection, $id);
 ?>
 
-<?php include "php/view/header/header.php"; ?>
+<?php include "php/view/assets/header.php"; ?>
    
      <title> GALERY  </title>
 </head>
@@ -18,7 +19,7 @@
             if(isset($_GET['Error'])){
 
                 $err = intval($_GET['Error']); 
-                nclude("php/view/errors/err.php");
+                include("php/view/errors/err.php");
             }
         ?>
         <div class="row justify-content-center">
@@ -43,5 +44,4 @@
             <?php require("php/view/gallery/picsGallery.php"); ?>
         </div>
     </div>
-</body>
-</view>
+<?php require("php/view/assets/footer.php");?>

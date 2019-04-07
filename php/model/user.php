@@ -1,9 +1,12 @@
 <?php
     class User{
+        private $userId;
         private $userName; 
         private $firstName;
         private $lastName; 
         private $email; 
+        private $phoneNumber = "098765432345678"; 
+        private $adress = "jshdfhlk sdoyuf sdfus dl"; 
         private $password;
 
         // making a constructor for the user Class 
@@ -26,32 +29,14 @@
             $this->password = $password;
         }
         // creating setters
-        
-        public function setUserData($connection, $id){
-            $query = "SELECT * FROM users where userId = :id"; 
-            $stmt = $connection->prepare($query); 
-            $params = [
-                ":id" => $id
-            ]; 
-            $stmt->execute($params); 
-            $res = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-            $this->userName = $res[0]['userName']; 
-            $this->firstName = $res[0]['userFirstName']; 
-            $this->lastName = $res[0]['userLastName']; 
-            $this->email = $res[0]['userEmail']; 
+        public function setUserId($id){
+            $this->userId = $id;
         }
-        // creating getters
-        public function getUserId($connection){
-            $query = "SELECT userId FROM users WHERE userName = :username AND  userPassword = :password"; 
-            $stmt = $connection->prepare($query); 
-            $params = [
-                ':username' => $this->getUserName() , 
-                ':password' => $this->getPassword()
-            ]; 
-            $stmt->execute($params);
-            $res = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-            return $res[0]['userId'];
 
+
+        // creating getters
+        public function getUserId(){
+            return $this->userId; 
         }
         public function getUserName(){
             return $this->userName; 
@@ -68,54 +53,41 @@
         public function getPassword(){
             return $this->password;
         }
-        //  CRUD
-
-        public function add($connection){
-
-            $query = "INSERT INTO users(userName, userFirstName, userLastName, userEmail, userPassword) 
-                        VALUES(:userName, :firstName, :lastName, :email, :password)"; 
-            $stmt = $connection->prepare($query);
-            $params = [
-                ':userName' => $this->getUserName(), 
-                ':firstName' => $this->getFirstName(),
-                ':lastName' => $this->getLastName(), 
-                ':email' => $this->getEmail(),
-                ':password' => $this->getPassword()
-            ];
-
-            if($this->validate("register")){
-                $stmt->execute($params);
-                header('location: ../../');
-            }else{
-                echo 'something went wrong';
-            }
+        public function getPhoneNumber(){
+            return $this->phoneNumber;
+        }
+        public function getAdress(){
+            return $this->adress;
         }
 
-        public function login($connection){
-            $query = "SELECT COUNT(*) AS c FROM users WHERE userName = :username AND userPassword = :password";
+        public function getUserIdFromDB($connection){
+            $query = "SELECT userId FROM users WHERE userName = :username AND  userPassword = :password"; 
             $stmt = $connection->prepare($query); 
             $params = [
-                ':username' => $this->getUserName(), 
-                'password' => $this->getPassword()
-            ];
-            $result = false ;
-            if($this->validate("login")){
-               
-                $stmt->execute($params);
-                $arr = $stmt->fetchAll(PDO::FETCH_ASSOC); //creating an associative array from the result we are getting from the SQL query 
-               
-                if($arr[0]['c'] == 1){
-                    $result = true ; 
-                }
-                
-            }else{
-                echo "some of the inputs are empty !!";
-            }
-
-            return $result;
+                ':username' => $this->getUserName() , 
+                ':password' => $this->getPassword()
+            ]; 
+            $stmt->execute($params);
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+            $this->setUserId($res[0]['userId']);
+            return $this->getUserId();
         }
-
-        private function validate($type){
+        
+        public function setUserData($connection, $id){
+            $query = "SELECT * FROM users where userId = :id"; 
+            $stmt = $connection->prepare($query); 
+            $params = [
+                ":id" => $id
+            ]; 
+            $stmt->execute($params); 
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+            $this->userName = $res[0]['userName']; 
+            $this->firstName = $res[0]['userFirstName']; 
+            $this->lastName = $res[0]['userLastName']; 
+            $this->email = $res[0]['userEmail']; 
+        }
+       
+        public function validate($type){
             // throw some code in here 
            if($type == "login"){
                 if($this->getUserName() == "" || $this->getPassword() == ""){

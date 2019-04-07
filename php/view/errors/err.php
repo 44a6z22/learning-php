@@ -17,6 +17,9 @@ function error($err){
         case 4 : 
             $res = Errors::$NO_FILE; 
             break ;
+         case 10 :
+            $res = Errors::$INPUTS_EMPTY; 
+            break ; 
     }
     return $res; 
 } 

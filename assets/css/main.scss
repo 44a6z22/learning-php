@@ -2,17 +2,24 @@
 div.row:nth-child(2n){
   margin-top: 40px;
 } 
+.center{
+  margin-left :10%;
+  
+}
 .row{
+  & a{
+    padding: 20px 20px 0px 10px;
+
+  }
   .profile-head{
     display: flex; 
     align-items: center;
-    & a{
-      padding : 20px 20px 0px 10px;
-  
-    }
-    & .profile-pic{
-      height: 100px;
-      width: 100px; 
-    }
   }
 }
+.profile-pic {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+
+}
+

@@ -2,6 +2,14 @@ div.row:nth-child(2n) {
   margin-top: 40px;
 }
 
+.center {
+  margin-left: 10%;
+}
+
+.row a {
+  padding: 20px 20px 0px 10px;
+}
+
 .row .profile-head {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -11,12 +19,9 @@ div.row:nth-child(2n) {
           align-items: center;
 }
 
-.row .profile-head a {
-  padding: 20px 20px 0px 10px;
-}
-
-.row .profile-head .profile-pic {
+.profile-pic {
   height: 100px;
   width: 100px;
+  border-radius: 50%;
 }
 /*# sourceMappingURL=main.css.map */

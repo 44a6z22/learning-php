@@ -1,6 +1,6 @@
 <div class="col-md-4">
     <h2> inscription</h2>
-    <form action="php/controller/registerHandler.php" method="POST">
+    <form action="php/controller/registerHandler.php" method="POST" id="register">
         <div class="form-group">
             <input type="text" name="username" class="form-control" placeholder="Username" require>
         </div>
@@ -16,6 +16,6 @@
         <div class="form-group">
             <input type="password" name="password" class="form-control" placeholder="Password" require>
         </div>  
-        <input type="submit" name="register" class="btn btn-primary btn-block" value="Register">
+        <input type="submit" name="register" class="btn btn-primary btn-block submit" value="Register">
     </form>
 </div>

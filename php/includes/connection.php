@@ -1,6 +1,6 @@
 <?php
     ob_start();
-
+    
 	$timezone = date_default_timezone_set("Europe/London");
 
     $dbString = "mysql:host=127.0.0.1; dbname=youcode; charset=utf8mb4";

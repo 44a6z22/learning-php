@@ -6,7 +6,7 @@
     } 
 ?>
 
-<?php require("php/view/header/header.php");?>
+<?php require("php/view/assets/header.php");?>
 
     <title>
         <?php 
@@ -50,5 +50,5 @@
             ?>  
         </div>
     </div>
-</body>
-</view>
+ 
+    <?php require("php/view/assets/footer.php");?>
