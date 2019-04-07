@@ -1002,8 +1002,7 @@ blockquote {
   .mdl-layout__drawer .candidate-name {
     font-size: 18px;
     color: #fff;
-    text-transform: capitalize; 
-    padding: 20px 20px; }
+    text-transform: capitalize; }
   .mdl-layout__drawer .social-icons {
     text-align: center; }
     .mdl-layout__drawer .social-icons li {
@@ -1955,8 +1954,4 @@ blockquote {
   .about-sec .datepicker {
     left: -25px; } }
 
-
-    .lower{
-      margin-top: 200px;
-    }
 /*# sourceMappingURL=style.css.map */
