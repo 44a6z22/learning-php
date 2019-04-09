@@ -25,6 +25,7 @@
                     span.classList.remove("alert");
                     span.classList.remove('alert-warning');
                     span.style.display = "none";
+                    element.removeChild(span);
                 }, 1000);
         }
     </script>

@@ -22,7 +22,7 @@ CREATE TABLE books(
 );
 
 CREATE TABLE comments(
-	commentId INT PRIMARY KEY AUTO_INCREMENT NOT NULL , 
+	commentId INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
     commentContent VARCHAR(255), 
     commentFrom INT, 
     commentTo INT, 
@@ -38,17 +38,19 @@ CREATE TABLE followers(
 );
 
 CREATE TABLE messages(
-	messageId INT PRIMARY KEY AUTO_INCREMENT NOT NULL , 
+	messageId INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
     messageContent VARCHAR(255), 
     messageFrom INT, 
     messageTo INT, 
     FOREIGN KEY (messageFrom) REFERENCES users(userId),
     FOREIGN KEY (messageTo) REFERENCES users(userId)
 ); 
+
 CREATE TABLE accountTypes(
 	accountTypeId INT PRIMARY KEY AUTO_INCREMENT NOT NULL , 
     accountTypeTitle VARCHAR(20)
 );
+
 CREATE TABLE accounts(
 	accountId INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
     accountOwner INT, 
@@ -58,6 +60,15 @@ CREATE TABLE accounts(
     FOREIGN KEY (accountType) REFERENCES accountTypes(accountTypeId)
 );
 
+CREATE TABLE pin(
+    pinId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    pinnedTo INT, 
+    commentId INT, 
+    FOREIGN KEY (pinnedTo) REFERENCES users(userId),
+    FOREIGN KEY (commentId) REFERENCES messages(messageId)
+);
+
+-- INSERTS ---
 
 INSERT INTO accountTypes VALUES(NULL, "ADMIN"),
 							    (NULL, "READER"), 
@@ -68,29 +79,65 @@ INSERT INTO users VALUES(NULL, "44a6z2", "hamza", "hamdaoui", "hhamdaoui31@gmail
                         (NULL, "achraf", "anas", "rchid", "hhamdaoui31@gmail.com", "Hamza-_-", "1998/09/07"),
                         (NULL, "spir", "adnane", "rouhi", "hhamdaoui31@gmail.com", "Hamza-_-", "1990/09/07");
                         
-INSERT INTO followers VALUES(2,5),
-							(3,5),
-                            (4,5);
+INSERT INTO followers VALUES(2,1),
+							(3,1),
+                            (4,1);
 
-INSERT INTO books VALUES(NULL,"high way to hell", curdate(),5, 399),
-							(NULL,"stairway to heaven", curdate(),5, 300),
-							(NULL,"arduino for beginers", curdate(),4, 400);
+INSERT INTO books VALUES(NULL,"high way to hell", curdate(),1, 399),
+							(NULL,"stairway to heaven", curdate(),1, 300),
+							(NULL,"arduino for beginers", curdate(),1, 400);
 
-INSERT INTO accounts VALUES(NULL,5,1,curdate()),                            
-                            (NULL,4,3,curdate());
+INSERT INTO accounts VALUES(NULL,1,1,curdate()),                            
+                            (NULL,2,3,curdate());
+                            
+						
+INSERT INTO messages VALUES(NULL, "wech a sat", 3, 2), 
+							(NULL, "fzn hani ", 2,3); 
+
+INSERT INTO comments VALUES	(NULL, "hhhhhhh", 1, 2),
+							(NULL, "lol", 3, 1),
+							(NULL, "cool", 2, 1),
+							(NULL, "great", 4, 1);
+
+INSERT INTO pin VALUES 	(NULL, 1, 1),
+						(NULL, 3, 1), 
+                        (NULL, 4, 1);
 
 -- JOINS --
+
+-- how many books a user has published 
 SELECT u.userUserName , count(*)
     FROM books b INNER JOIN users u ON b.bookAuthor = u.userId
-    Where u.userId = 4; -- how many books a user has published 
-
-
+    Where u.userId = 1; 
+ 
+-- how many followers a user have 
 SELECT u.userFirstName , count(*)
     FROM followers f INNER JOIN users u ON u.userID  = f.followedId
-    WHERE u.userId = 5; -- how many followers a user have 
-
+    WHERE u.userId = 1;	 
+		
 -- getting what type of accounts a user have 
 SELECT u.userFirstName AS firstname , t.accountTypeTitle AS accountType
     FROM accounts a INNER JOIN users u ON u.userId = a.accountOwner
-        INNER JOIN accountTypes t ON a.accountType = t.accountTypeId
-        WHERE u.userUserName =  "44a6z2" ;
+                    INNER JOIN accountTypes t ON a.accountType = t.accountTypeId
+                    WHERE u.userUserName =  "44a6z2" AND u.userPassword = "Hamza-_-" ;
+        
+        
+-- getting messages that been sent between two users 
+SELECT 	m.messageContent AS "message" ,
+		(SELECT u.userFirstName from users u WHERE u.userId = m.messageFrom) AS "from",
+        (SELECT u.userFirstName from users u WHERE u.userId = m.messageTo) AS "To"
+		FROM users u INNER JOIN messages m ON m.messageFrom = u.userId OR m.messageTo = u.userId 
+		where  (m.messageFrom = 1 AND m.messageTo = 2) OR (m.messageFrom = 2 AND m.messageTo = 1) 
+        GROUP BY m.messageFrom;
+        
+-- getting comeent that a user posted 
+SELECT c.commentContent FROM users u INNER JOIN comments c ON u.userId = c.commentFom WHERE u.userId = 1;
+     
+ -- getting comeent that a user has
+SELECT c.commentContent FROM users u INNER JOIN comments c ON u.userId = c.commentTo WHERE u.userId = 1;
+	
+-- getting comment content of the pinned comments 
+SELECT (SELECT userFirstName FROM users WHERE userId = 1), 
+        c.commentContent FROM users u INNER JOIN comments c ON u.userId = c.commentTo 
+                                    INNER JOIN pin p ON p.pinnedTo = u.userId 
+                                    WHERE u.userId = 1

@@ -1,8 +1,7 @@
 <?php
     class Account{
         private $con; 
-        private $accountType ;
-
+        private $accountType;
 
         public function __construct($connection){
             $this->con = $connection;
@@ -12,7 +11,6 @@
         public function getConnection(){
             return $this->con;
         }
-
         public function getAccountType(){
             return $this->accountType ; 
         }

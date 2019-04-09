@@ -1,6 +1,9 @@
 <?php
 	include("php/config.php");
 	session_start();
+	if(!isset($_SESSION['userLogin'])){
+		header('location: ./');
+	}
 	$id = $_SESSION['userLogin'];
 	$user = new User(); 	
 	$user->setUserData($connection, $id);
