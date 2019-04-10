@@ -1,11 +1,12 @@
 <?php
   if(file_exists($path)){
-    if ($handle = opendir('php/upload/'.$id)) {
+    $booksFolder = 'php/upload/'.$id.'/booksPictures';
+    if ($handle = opendir($booksFolder)) {
       $counter = 0 ; 
       while (false !== ($entry = readdir($handle))) {   
         if ($entry != "." && $entry != ".." && $entry != "profilePictures") {
           if($counter <= 2){
-            $filename = $id . "/" . $entry;
+            $filename = $id . "/booksPictures/" . $entry;
 ?>
               <div class="col-sm-4 mb-30">
                 <div class="mdl-card mdl-shadow--2dp pa-0">

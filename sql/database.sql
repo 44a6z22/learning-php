@@ -51,21 +51,12 @@ CREATE TABLE accountTypes(
     accountTypeTitle VARCHAR(20)
 );
 
-CREATE TABLE accounts(
-	accountId INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
-    accountOwner INT, 
-    accountType INT, 
-    accountCreationDate DATE,
-    FOREIGN KEY (accountOwner) REFERENCES users(userId),
-    FOREIGN KEY (accountType) REFERENCES accountTypes(accountTypeId)
-);
-
 CREATE TABLE pin(
     pinId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     pinnedTo INT, 
     commentId INT, 
     FOREIGN KEY (pinnedTo) REFERENCES users(userId),
-    FOREIGN KEY (commentId) REFERENCES messages(messageId)
+    FOREIGN KEY (commentId) REFERENCES comments(commentId)
 );
 
 -- INSERTS ---
@@ -94,14 +85,22 @@ INSERT INTO accounts VALUES(NULL,1,1,curdate()),
 INSERT INTO messages VALUES(NULL, "wech a sat", 3, 2), 
 							(NULL, "fzn hani ", 2,3); 
 
-INSERT INTO comments VALUES	(NULL, "hhhhhhh", 1, 2),
-							(NULL, "lol", 3, 1),
-							(NULL, "cool", 2, 1),
-							(NULL, "great", 4, 1);
+INSERT INTO comments VALUES	(NULL, "good shit", 1, 3),
+							(NULL, "great", 2, 3),
+							(NULL, "cool", 4, 3),
+							(NULL, "great", 1, 2),
+							(NULL, "cool", 4, 2),
+							(NULL, "great", 2, 2);
 
-INSERT INTO pin VALUES 	(NULL, 1, 1),
-						(NULL, 3, 1), 
-                        (NULL, 4, 1);
+INSERT INTO pin VALUES 	(NULL, 2, 1),
+						(NULL, 2, 8), 
+                        (NULL, 2, 9),
+                        (NULL, 2, 10),
+						(NULL, 3, 5), 
+                        (NULL, 3, 6),
+                        (NULL, 3, 7);
+         SELECT * FROM pin            
+                        
 
 -- JOINS --
 
@@ -135,9 +134,20 @@ SELECT c.commentContent FROM users u INNER JOIN comments c ON u.userId = c.comme
      
  -- getting comeent that a user has
 SELECT c.commentContent FROM users u INNER JOIN comments c ON u.userId = c.commentTo WHERE u.userId = 1;
-	
+
 -- getting comment content of the pinned comments 
-SELECT (SELECT userFirstName FROM users WHERE userId = 1), 
-        c.commentContent FROM users u INNER JOIN comments c ON u.userId = c.commentTo 
-                                    INNER JOIN pin p ON p.pinnedTo = u.userId 
-                                    WHERE u.userId = 1
+
+
+SELECT c.commentContent , (SELECT c.commentFrom FROM comments WHERE commentFrom = 3) FROM users u INNER JOIN pin p ON u.userId = p.pinnedTo
+                                    INNER JOIN comments c ON p.commentId = c.commentId
+                                    WHERE u.userId = 3;
+                                    
+SELECT * FROM pin;
+DELETE FROM pin WHERE pinId = 3;
+ALTER TABLE users 
+	ADD COLUMN userType INT ;
+ALTER TABLE users 
+	ADD CONSTRAINT FK_type FOREIGN KEY (userType) REFERENCES accounttypes(accountTypeId)
+                                    
+	-- USE LIBRARY 
+    USE library 

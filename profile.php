@@ -1,19 +1,25 @@
 <?php
 	include("php/config.php");
 	session_start();
-	if(!isset($_SESSION['userLogin'])){
+	if(!isset($_SESSION['userLogin']) && !isset($_GET['userId'])){
 		header('location: ./');
+	}else if(isset($_GET['userId'])){
+		$id = $_GET['userId'];
+	}else if ($_SESSION['userLogin']){
+		$id = $_SESSION['userLogin'];
 	}
-	$id = $_SESSION['userLogin'];
-	$user = new User(); 	
-	$user->setUserData($connection, $id);
+	$user = new User();
+
+	$user->setConnection($connection);	
+	$user->setUSerId($id);	
+	$user->setUserData();
 ?>
 
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
 		<meta charset="UTF-8" />
-		<title><?php echo $user->getFirstName() ." ". $user->getLastName();?></title>
+		<title><?php echo $user->getFullName(); ?></title>
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 	</head>
 	
@@ -30,7 +36,7 @@
 				<header class="mdl-layout__header">
 					<div class="mdl-layout__header-row mdl-scroll-spy-1">
 						<!-- Title -->
-						<a href="index.html"><span class="mdl-layout-title"><?php echo $user->getFirstName();?></span></a>
+						<a href="index.html"><span class="mdl-layout-title"><?php echo $user->getFullName();?></span></a>
 						<div class="mdl-layout-spacer"></div>
 						<ul class="nav mdl-navigation mdl-layout--large-screen-only">
 							<li><a class="mdl-navigation__link" data-scroll href="#body">about</a></li>
@@ -38,18 +44,25 @@
 							<li><a class="mdl-navigation__link" data-scroll href="#books_sec">Books</a></li>
 							<li><a class="mdl-navigation__link" data-scroll href="#skills_sec">skills</a></li>
 						</ul>
+						
+
+						<?php
+							if(isset($_SESSION['userLogin'])){
+						?>
 						<!-- Right aligned menu below button -->
 						<button id="demo-menu-lower-right"
 								class="mdl-button mdl-js-button mdl-button--icon ver-more-btn">
 						  <i class="material-icons">more_vert</i>
 						</button>
-
 						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 							data-mdl-for="demo-menu-lower-right">
 							<li class="mdl-menu__item"><a href="#"><i class="zmdi zmdi-upload font-blue pr-10"></i>Add book</a></li>	
 							
 							<li class="mdl-menu__item"><a href="php/controller/logoutHandler.php"><i class="lower pr-10 font-red material-icons">power_settings_new</i>logout</a></li>			
 						</ul>
+						<?php
+							}
+						?>
 					</div>
 				</header>
 				<!--/Top Header-->
@@ -59,10 +72,9 @@
 					<?php 
 						
 						$id = $_SESSION['userLogin']; 
-						require("php/view/assets/leftSideBar.php");
+						if(isset($_SESSION["userLogin"])) require("php/view/assets/leftSideBar.php");
 						
 						if(isset($_GET["userId"])) $id = $_GET["userId"];	
-
 							$user->setUserData($connection, $id);
 
 					?>
@@ -86,7 +98,7 @@
 														include("php/view/gallery/profilePic.php");
 													?>
 												</div>
-												<ul class="social-icons">
+												<!-- <ul class="social-icons">
 													<li>
 														<a class="facebook-link" href="#">
 															<i id="tt1" class="zmdi zmdi-facebook"></i>
@@ -127,14 +139,14 @@
 															</div>
 														</a>
 													</li>
-												</ul>
+												</ul> -->
 											</div>
 											<div class="col-md-7 col-xs-12">
 												<div class="info-wrap">
-													<h1><?php echo $user->getFirstName() ." ". $user->getLastName();?></h1>
+													<h1><?php echo $user->getFullName();?></h1>
 													<h5 class="mt-20 font-grey"></h5>
 													<?php
-														if($id != $_SESSION['userLogin']){
+														if( isset($_SESSION['userLogin']) && $id != $_SESSION['userLogin']){
 													?>
 														<div class="mt-30">
 															<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
@@ -176,29 +188,7 @@
 						</section>
 						<!--/About Sec-->	
 						<!--References Sec-->
-						<section id="references_sec" class="reference-sec sec-pad-top-sm">
-							<h2 class="mb-30">testimonial</h2>
-							<div class="row">
-								<div class="col-sm-12 mb-30">
-									<div class="mdl-card mdl-shadow--2dp border-top-yellow pa-35">
-										<div class="testimonial-carousel">
-											<div>
-												<blockquote>"Invitamus me testatur sed quod non dum animae tuae lacrimis ut libertatem deum rogus aegritudinis causet. Dicens hoc contra serpentibus isto."</blockquote>
-												<span class="ref-name block mb-5 mt-20">john doe</span>
-												<span class="ref-desgn block">Lead Designer in Droffox</span>
-											</div>
-											<div>
-												<blockquote>"Invitamus me testatur sed quod non dum animae tuae lacrimis ut libertatem deum rogus aegritudinis causet. Dicens hoc contra serpentibus isto."</blockquote>
-												<span class="ref-name block mb-5 mt-20">Shone doe</span>
-												<span class="ref-desgn block">Lead Designer in Fakebook</span>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						
-						</section>
+						<?php  require('php/view/assets/testos.php');?>
 						<!--/References Sec-->    	
 						<!--Books Sec-->
 						<section id="books_sec" class="blog-sec sec-pad-top-sm">

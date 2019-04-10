@@ -7,7 +7,7 @@
             
             upload("", "profilePictures");
         }else if(isset($_POST['upload'])){
-            upload("", $_SESSION['userLogin']);
+            upload("", $_SESSION['userLogin']."/booksPictures");
         }
     }
 

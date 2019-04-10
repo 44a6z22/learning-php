@@ -6,9 +6,9 @@
 
         if($_POST['username'] != "" && $_POST['password'] != ""){
            
-            $user = new User($_POST['username'], $_POST['password']);
+            $user = new User($connection, $_POST['username'], $_POST['password']);
            
-            if($account->login($user)){
+            if($user->login()){
             
                 $_SESSION["userLogin"] = $user->getUserIdFromDB($connection);
                 //  Creating a folder for the user on his first login to the website 

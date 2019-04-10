@@ -8,7 +8,7 @@
 									include("php/view/gallery/profilePic.php");
 								?>
 							</div>
-							<span class="candidate-name block mb-10 text-center"><a href="profile.php"><?php echo $user->getFirstName() ." ". $user->getLastName();?></a></span>
+							<span class="candidate-name block mb-10 text-center"><a href="profile.php"><?php echo $user->getFullName();?></a></span>
 							
 						</div>
 						<div class="mdl-scroll-spy-2">
