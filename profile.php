@@ -1,5 +1,5 @@
 <?php
-	include("php/config.php");
+	include "php/config.php";
 	session_start();
 	if(!isset($_SESSION['userLogin']) && !isset($_GET['userId'])){
 		header('location: ./');
@@ -10,8 +10,8 @@
 	}
 	$user = new User();
 
-	$user->setConnection($connection);	
-	$user->setUSerId($id);	
+	$user->setConnection($connection);
+	$user->setUSerId($id);
 	$user->setUserData();
 ?>
 
@@ -22,21 +22,21 @@
 		<title><?php echo $user->getFullName(); ?></title>
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 	</head>
-	
+
 	<body id="body" data-ng-app="contactApp">
 		<!--Main Wrapper-->
 		<div class="main-wrapper">
 			<!--Bg Image-->
 			<div class="bg-struct bg-img"></div>
 			<!--/Bg Image-->
-			
+
 			<div class="mdl-js-layout mdl-layout--fixed-header">
-				
+
 				<!--Top Header-->
 				<header class="mdl-layout__header">
 					<div class="mdl-layout__header-row mdl-scroll-spy-1">
 						<!-- Title -->
-						<a href="index.html"><span class="mdl-layout-title"><?php echo $user->getFullName();?></span></a>
+						<a href="./"><span class="mdl-layout-title"><?php echo $user->getFullName();?></span></a>
 						<div class="mdl-layout-spacer"></div>
 						<ul class="nav mdl-navigation mdl-layout--large-screen-only">
 							<li><a class="mdl-navigation__link" data-scroll href="#body">about</a></li>
@@ -44,7 +44,7 @@
 							<li><a class="mdl-navigation__link" data-scroll href="#books_sec">Books</a></li>
 							<li><a class="mdl-navigation__link" data-scroll href="#skills_sec">skills</a></li>
 						</ul>
-						
+
 
 						<?php
 							if(isset($_SESSION['userLogin'])){
@@ -56,9 +56,9 @@
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 							data-mdl-for="demo-menu-lower-right">
-							<li class="mdl-menu__item"><a href="#"><i class="zmdi zmdi-upload font-blue pr-10"></i>Add book</a></li>	
-							
-							<li class="mdl-menu__item"><a href="php/controller/logoutHandler.php"><i class="lower pr-10 font-red material-icons">power_settings_new</i>logout</a></li>			
+							<li class="mdl-menu__item"><a href="#"><i class="zmdi zmdi-upload font-blue pr-10"></i>Add book</a></li>
+
+							<li class="mdl-menu__item"><a href="php/controller/logoutHandler.php"><i class="lower pr-10 font-red material-icons">power_settings_new</i>logout</a></li>
 						</ul>
 						<?php
 							}
@@ -66,26 +66,26 @@
 					</div>
 				</header>
 				<!--/Top Header-->
-				
+
 				<!--Left Sidebar-->
 
-					<?php 
-						
-						$id = $_SESSION['userLogin']; 
+					<?php
+
+						$id = $_SESSION['userLogin'];
 						if(isset($_SESSION["userLogin"])) require("php/view/assets/leftSideBar.php");
-						
-						if(isset($_GET["userId"])) $id = $_GET["userId"];	
+
+						if(isset($_GET["userId"])) $id = $_GET["userId"];
 							$user->setUserData($connection, $id);
 
 					?>
 				<!--/Left Sidebar-->
-			
-				
-				
+
+
+
 				<!--Main Content-->
 				<div class="main-content relative">
 					<div class="container">
-						
+
 						<!--About Sec-->
 						<section class="about-sec mt-180 mt-sm-120  mb-30">
 							<div class="row">
@@ -98,48 +98,7 @@
 														include("php/view/gallery/profilePic.php");
 													?>
 												</div>
-												<!-- <ul class="social-icons">
-													<li>
-														<a class="facebook-link" href="#">
-															<i id="tt1" class="zmdi zmdi-facebook"></i>
-															<div class="mdl-tooltip" data-mdl-for="tt1">
-																facebook
-															</div>
-														</a>
-													</li>
-													<li>
-														<a class="twitter-link" href="#">
-															<i id="tt2" class="zmdi zmdi-twitter"></i>
-															<div class="mdl-tooltip" data-mdl-for="tt2">
-																twitter
-															</div>
-														</a>
-													</li>
-													<li>
-														<a class="linkedin-link" href="#">
-															<i id="tt3" class="zmdi zmdi-linkedin"></i>
-															<div class="mdl-tooltip" data-mdl-for="tt3">
-																linkedin
-															</div>
-														</a>
-													</li>
-													<li>
-														<a class="dribbble-link" href="#">
-															<i id="tt4" class="zmdi zmdi-dribbble"></i>
-															<div class="mdl-tooltip" data-mdl-for="tt4">
-																dribbble
-															</div>
-														</a>
-													</li>
-													<li>
-														<a class="instagram-link" href="#">
-															<i id="tt5" class="zmdi zmdi-instagram"></i>
-															<div class="mdl-tooltip" data-mdl-for="tt5">
-																instagram
-															</div>
-														</a>
-													</li>
-												</ul> -->
+												
 											</div>
 											<div class="col-md-7 col-xs-12">
 												<div class="info-wrap">
@@ -152,7 +111,7 @@
 															<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
 															<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-green font-white" href="#contact_sec" data-scroll>contact</a>
 														</div>
-													<?php	
+													<?php
 														}
 													?>
 												</div>
@@ -164,7 +123,7 @@
 													<li>
 														<div class="profile-title">address</div>
 														<div class="profile-desc">
-															
+
 														</div>
 													</li>
 													<li>
@@ -178,18 +137,18 @@
 														<div class="profile-desc">
 														</div>
 													</li>
-													
+
 												</ul>
 											</div>
 										</div>
 									</div>
-								</div>	
+								</div>
 							</div>
 						</section>
-						<!--/About Sec-->	
+						<!--/About Sec-->
 						<!--References Sec-->
 						<?php  require('php/view/assets/testos.php');?>
-						<!--/References Sec-->    	
+						<!--/References Sec-->
 						<!--Books Sec-->
 						<section id="books_sec" class="blog-sec sec-pad-top-sm">
 							<h2 class="mb-30">books</h2>
@@ -200,101 +159,25 @@
 							</div>
 							<div class="text-center mt-20 mb-30">
 								<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  margin-lr-auto view-more" href="blog-list.html">view all</a>
-							</div>	
-						</section>	
-						<!--/Books Sec-->
-						<!--Skills Sec-->
-						<section id="skills_sec" class="skills-sec sec-pad-top-sm">
-							<div class="row">
-								<div class="col-sm-6 mb-30">
-									<h2 class="mb-30">technical skills</h2>
-									<div class="mdl-card mdl-shadow--2dp">
-										<div class="mb-30">
-											<span class="progress-cat">Photoshop CS</span>
-											<div class="progress-bar-graph"> 
-												<div class="progress-bar-wrap">
-													<div class="bar-wrap blue-bar">
-														<span data-width="60"></span>
-													</div>
-												</div>	
-											</div>
-										</div>	
-										<div class="mb-30">
-											<span class="progress-cat">Illustrator CS</span>
-											<div class="progress-bar-graph"> 
-												<div class="progress-bar-wrap">
-													<div class="bar-wrap green-bar">
-														<span data-width="90"></span>
-													</div>
-												</div>	
-											</div>
-										</div>
-										<div class="mb-30">
-											<span class="progress-cat">Sketch</span>
-											<div class="progress-bar-graph"> 
-												<div class="progress-bar-wrap">
-													<div class="bar-wrap yellow-bar">
-														<span data-width="50"></span>
-													</div>
-												</div>	
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 mb-30">
-									<h2 class="mb-30">soft skills</h2>
-										<div class="mdl-card mdl-shadow--2dp">
-										<div class="mb-30">
-											<span class="progress-cat">Communication</span>
-											<div class="progress-bar-graph"> 
-												<div class="progress-bar-wrap">
-													<div class="bar-wrap blue-bar">
-														<span data-width="80"></span>
-													</div>
-												</div>	
-											</div>
-										</div>	
-										<div class="mb-30">
-											<span class="progress-cat">Language</span>
-											<div class="progress-bar-graph"> 
-												<div class="progress-bar-wrap">
-													<div class="bar-wrap green-bar">
-														<span data-width="95"></span>
-													</div>
-												</div>	
-											</div>
-										</div>
-										<div class="mb-30">
-											<span class="progress-cat">General Knowledge</span>
-											<div class="progress-bar-graph"> 
-												<div class="progress-bar-wrap">
-													<div class="bar-wrap yellow-bar">
-														<span data-width="90"></span>
-													</div>
-												</div>	
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
 						</section>
-						<!--/Skills Sec-->
-						
-					
+						<!--/Books Sec-->
+
+
 						<!--Footer Sec-->
 						<footer class="footer-sec sec-pad-top-sm sec-pad-bottom text-center">
 							<h4>thank you for visiting.</h4>
-							<p class="mt-10">Hencework 2017. All rights reserved.</p>											
+							<p class="mt-10">Hencework 2017. All rights reserved.</p>
 						</footer>
 						<!--Footer Sec-->
 					</div>
-				</div>	
+				</div>
 				<!--/Main Content-->
-							
-			</div>	
-		</div>	
+
+			</div>
+		</div>
 		<!--/Main Wrapper-->
-		
+
 		<!-- Scripts -->
 		<script src="assets/js/jquery-1.12.4.min.js"></script>
 		<script src="assets/js/angular.min.js"></script>

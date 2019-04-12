@@ -5,20 +5,21 @@
     }
     include "php/config.php";
     $id = $_SESSION['userLogin'];
-    $user = new User(); 
-    $user->setUserData($connection, $id);
+    $user = new User($connection);
+    $user->setUserId($_SESSION['userLogin']);
+    $user->setUserData();
 ?>
 
 <?php include "php/view/assets/header.php"; ?>
-   
+
      <title> GALERY  </title>
 </head>
 <body>
-    <div class="container">  
+    <div class="container">
         <?php
             if(isset($_GET['Error'])){
 
-                $err = intval($_GET['Error']); 
+                $err = intval($_GET['Error']);
                 include("php/view/errors/err.php");
             }
         ?>
@@ -27,18 +28,18 @@
                 <?php require("php/view/gallery/profilePic.php"); ?>
                 <h2>Hello <?php echo $user->getUserName();?></h2>
             </div>
-        </div>  
+        </div>
         <div class="row justify-content-center">
             <?php require("php/view/forms/uploadForm.php"); ?>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                
+
                 <form action="php/controller/logoutHandler.php" method="POST">
                     <input type="submit" class="btn btn-danger btn-block lg-btn" value="logout">
-                </form>  
+                </form>
 
-            </div> 
+            </div>
         </div>
         <div class="row jusify-content-center ">
             <?php require("php/view/gallery/picsGallery.php"); ?>

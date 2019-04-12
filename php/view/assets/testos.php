@@ -1,7 +1,8 @@
 <?php
-    $user->setUserId($id);
-    $results = $user->getPinnedComments();
-     echo count($results);
+$user1 = new User($connection);
+    $user1->setUserId($id);
+    $user1->setUserData();
+    $results = $user1->getPinnedComments();
 ?>
 <!--References Sec-->
     <section id="references_sec" class="reference-sec sec-pad-top-sm">
@@ -11,15 +12,14 @@
                 <div class="mdl-card mdl-shadow--2dp border-top-yellow pa-35">
                     <div class="testimonial-carousel">
                         <?php
-                        $i = 0 ; 
+                        $i = 0 ;
                         while(sizeOf($results) > $i){
                         ?>
                         <div>
-                            <blockquote>"<?php echo $i+1 . ' => ' . $results[$i]['commentContent'];?></blockquote>
-                            <span class="ref-name block mb-5 mt-20"><?php  echo $results[$i]['firstName'];?></span>
-                            <span class="ref-desgn block">Lead Designer in Droffox</span>
+                            <blockquote><?php echo $results[$i]['commentContent'];?></blockquote>
+                            <span class="ref-desgn block"><?php echo $user1->getFullName(); ?></span>
                         </div>
-                        
+
                         <?php
                         $i++;
                         }
@@ -29,6 +29,6 @@
                 </div>
             </div>
         </div>
-    
+
     </section>
-<!--/References Sec--> 
+<!--/References Sec-->

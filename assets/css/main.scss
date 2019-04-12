@@ -1,10 +1,10 @@
 
 div.row:nth-child(2n){
   margin-top: 40px;
-} 
+}
 .center{
   margin-left :10%;
-  
+
 }
 .row{
   & a{
@@ -12,7 +12,7 @@ div.row:nth-child(2n){
 
   }
   .profile-head{
-    display: flex; 
+    display: flex;
     align-items: center;
   }
 }
@@ -20,6 +20,4 @@ div.row:nth-child(2n){
   height: 100px;
   width: 100px;
   border-radius: 50%;
-
 }
-

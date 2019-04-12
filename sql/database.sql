@@ -137,15 +137,24 @@ SELECT c.commentContent FROM users u INNER JOIN comments c ON u.userId = c.comme
 
 -- getting comment content of the pinned comments 
 
-
-SELECT c.commentContent , (SELECT c.commentFrom FROM comments WHERE commentFrom = 3) FROM users u INNER JOIN pin p ON u.userId = p.pinnedTo
+ -- c.commentContent , (SELECT c.commentFrom FROM comments WHERE commentTo = 3) 
+SELECT c.commentFrom AS commentFrom, c.commentContent AS commentContent FROM users u INNER JOIN pin p ON u.userId = p.pinnedTo
                                     INNER JOIN comments c ON p.commentId = c.commentId
-                                    WHERE u.userId = 3;
-                                    
+                                    WHERE u.userId = 4;
+							
+                            
+						SELECT * FROM USERS 
+
+use library
+-- assets 
+
 SELECT * FROM pin;
+
 DELETE FROM pin WHERE pinId = 3;
+
 ALTER TABLE users 
 	ADD COLUMN userType INT ;
+
 ALTER TABLE users 
 	ADD CONSTRAINT FK_type FOREIGN KEY (userType) REFERENCES accounttypes(accountTypeId)
                                     

@@ -1,27 +1,18 @@
 div.row:nth-child(2n) {
-  margin-top: 40px;
-}
+  margin-top: 40px; }
 
 .center {
-  margin-left: 10%;
-}
+  margin-left: 10%; }
 
 .row a {
-  padding: 20px 20px 0px 10px;
-}
-
+  padding: 20px 20px 0px 10px; }
 .row .profile-head {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
+  align-items: center; }
 
 .profile-pic {
   height: 100px;
   width: 100px;
-  border-radius: 50%;
-}
+  border-radius: 50%; }
+
 /*# sourceMappingURL=main.css.map */
