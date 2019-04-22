@@ -1,15 +1,14 @@
 <?php
     require("php/config.php");
-    session_start();
     if(isset($_SESSION['userLogin'])){
         header('location: ./');
-    } 
+    }
 ?>
 
 <?php require("php/view/assets/header.php");?>
 
     <title>
-        <?php 
+        <?php
             if(isset($_GET['action'])){
                 echo $_GET['action'];
             }else{
@@ -22,7 +21,7 @@
     <div class="container-fluid">
         <?php
             if(isset($_GET['Error'])){
-                $err = intval($_GET['Error']); 
+                $err = intval($_GET['Error']);
                 include("php/view/errors/err.php");
             }
         ?>
@@ -46,9 +45,9 @@
                 }else{
                     include "php/view/forms/loginForm.php";
                 }
-            
-            ?>  
+
+            ?>
         </div>
     </div>
- 
+
     <?php require("php/view/assets/footer.php");?>

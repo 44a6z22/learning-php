@@ -10,10 +10,11 @@
                       $_POST["lastname"],
                       $_POST["email"],
                       $_POST["password"],
-                      $_POST['birthdate']
+                      $_POST['birthdate'],
+                      $_POST['accountType']
                       );
 
-        $account->register();
+        $user->register();
 
     }
 ?>

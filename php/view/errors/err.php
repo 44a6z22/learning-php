@@ -1,28 +1,28 @@
 <?php
 function error($err){
-    $res = ""; 
+    $res = "";
     switch($err){
         case 0 :
-            $res = Errors::$USER_NOT_FOUND; 
-            break ; 
+            $res = Errors::$USER_NOT_FOUND;
+            break ;
         case 1 :
-            $res = Errors::$MAX_SIZE; 
-            break ; 
+            $res = Errors::$MAX_SIZE;
+            break ;
         case 2 :
-            $res = Errors::$WRITE_FAILURE; 
-            break ; 
-        case 3 : 
+            $res = Errors::$WRITE_FAILURE;
+            break ;
+        case 3 :
             $res = Errors::$PARTIALY_UPLOADED;
-            break ;  
-        case 4 : 
-            $res = Errors::$NO_FILE; 
+            break ;
+        case 4 :
+            $res = Errors::$NO_FILE;
             break ;
          case 10 :
-            $res = Errors::$INPUTS_EMPTY; 
-            break ; 
+            $res = Errors::$INPUTS_EMPTY;
+            break ;
     }
-    return $res; 
-} 
+    return $res;
+}
 ?>
 
 <div class="col-md-12 danger">
@@ -30,13 +30,14 @@ function error($err){
         <?php echo error($err)?>
     </div>
 </div>
+
+
 <script>
-    
-    let danger =  document.querySelector('.danger'); 
+    let danger =  document.querySelector('.danger');
 
     setTimeout(() => {
         danger.style.transition = "1s";
-        danger.style.opacity = 0 ; 
+        danger.style.opacity = 0 ;
     }, 500);
     setTimeout(() => {
        danger.style.display = "none";

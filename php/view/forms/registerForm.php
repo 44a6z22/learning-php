@@ -15,10 +15,16 @@
         </div>
         <div class="form-group">
             <input type="text" name="birthdate" class="form-control" placeholder="birthdate :YYYY/MM/DD" required>
-        </div>  
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="accountType">
+              <option value="2">READER</option>
+              <option value="3">WRITER</option>
+            </select>
+        </div>
         <div class="form-group">
             <input type="password" name="password" class="form-control" placeholder="Password" required>
-        </div>  
+        </div>
         <input type="submit" name="register" class="btn btn-primary btn-block submit" value="Register">
     </form>
 </div>

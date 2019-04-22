@@ -1,6 +1,6 @@
 <?php
 $user1 = new User($connection);
-    $user1->setUserId($id);
+    $user1->setId($id);
     $user1->setUserData();
     $results = $user1->getPinnedComments();
 ?>
@@ -16,7 +16,13 @@ $user1 = new User($connection);
                         while(sizeOf($results) > $i){
                         ?>
                         <div>
-                            <blockquote><?php echo $results[$i]['commentContent'];?></blockquote>
+                            <blockquote>
+                              <?php echo $results[$i]['commentContent'];?>
+                            </blockquote>
+                              <?php
+                                $user1->setId($results[$i]['commentFrom']);
+                                $user1->setUserData();
+                              ?>
                             <span class="ref-desgn block"><?php echo $user1->getFullName(); ?></span>
                         </div>
 
