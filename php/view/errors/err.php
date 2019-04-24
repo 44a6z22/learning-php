@@ -1,7 +1,10 @@
 <?php
-function error($err){
+function    error($err)
+{
     $res = "";
-    switch($err){
+
+    switch( $err )
+    {
         case 0 :
             $res = Errors::$USER_NOT_FOUND;
             break ;
@@ -21,6 +24,7 @@ function error($err){
             $res = Errors::$INPUTS_EMPTY;
             break ;
     }
+    
     return $res;
 }
 ?>

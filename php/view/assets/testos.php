@@ -1,5 +1,5 @@
 <?php
-$user1 = new User($connection);
+    $user1 = new User($connection);
     $user1->setId($id);
     $user1->setUserData();
     $results = $user1->getPinnedComments();
@@ -12,23 +12,26 @@ $user1 = new User($connection);
                 <div class="mdl-card mdl-shadow--2dp border-top-yellow pa-35">
                     <div class="testimonial-carousel">
                         <?php
-                        $i = 0 ;
-                        while(sizeOf($results) > $i){
+                            $i = 0 ;
+                            while(sizeOf($results) > $i)
+                            {
                         ?>
                         <div>
                             <blockquote>
-                              <?php echo $results[$i]['commentContent'];?>
+                            <?php   echo $results[$i]['commentContent']; ?>
                             </blockquote>
-                              <?php
+                            <?php
                                 $user1->setId($results[$i]['commentFrom']);
                                 $user1->setUserData();
-                              ?>
-                            <span class="ref-desgn block"><?php echo $user1->getFullName(); ?></span>
+                            ?>
+                            <span class="ref-desgn block">
+                                <?php   echo $user1->getFullName(); ?>
+                            </span>
                         </div>
 
                         <?php
-                        $i++;
-                        }
+                                $i++;
+                            }
                         ?>
                         </div>
                     <div class="clearfix"></div>

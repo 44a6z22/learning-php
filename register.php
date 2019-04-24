@@ -1,17 +1,22 @@
 <?php
+    
     require("php/config.php");
-    if(isset($_SESSION['userLogin'])){
+    if(isset($_SESSION['userLogin']))
+    {
         header('location: ./');
     }
 ?>
 
-<?php require("php/view/assets/header.php");?>
+<?php require("php/view/assets/header.php"); ?>
 
     <title>
         <?php
-            if(isset($_GET['action'])){
+            if(isset($_GET['action']))
+            {
                 echo $_GET['action'];
-            }else{
+            }
+            else
+            {
                 echo "login";
             }
         ?>
@@ -20,7 +25,8 @@
 <body>
     <div class="container-fluid">
         <?php
-            if(isset($_GET['Error'])){
+            if(isset($_GET['Error']))
+            {
                 $err = intval($_GET['Error']);
                 include("php/view/errors/err.php");
             }
@@ -32,17 +38,20 @@
 
         <div class="row justify-content-center ">
             <?php
-                if(isset($_GET['action'])){
-
+                if(isset($_GET['action']))
+                {
                     $action = $_GET['action'];
-
-                    if($action == "login" ){
+                    if($action == "login" )
+                    {
                         include "php/view/forms/loginForm.php";
-                    }else if( $action == "register"){
+                    }
+                    else if( $action == "register")
+                    {
                         include "php/view/forms/registerForm.php";
                     }
-
-                }else{
+                }
+                else
+                {
                     include "php/view/forms/loginForm.php";
                 }
 
@@ -50,4 +59,4 @@
         </div>
     </div>
 
-    <?php require("php/view/assets/footer.php");?>
+    <?php   require("php/view/assets/footer.php"); ?>

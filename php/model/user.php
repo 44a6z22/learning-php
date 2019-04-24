@@ -13,22 +13,28 @@
         private $profileType;
 
         // making a constructor for the user Class
-        public function __construct(){
+        public function     __construct()
+        {
             $args = func_get_args();
             $num = func_num_args();
-            if(method_exists($this,$f = 'init_' . $num)) {
-                call_user_func_array(array($this,$f),$args);
+            
+            if( method_exists( $this, $f = 'init_' . $num ) ) 
+            {
+                call_user_func_array(   array( $this,   $f ),   $args );
             }
         }
-        public function init_1($con){
+        public function     init_1($con)
+        {
             $this->connection = $con;
         }
-        public function init_3($con, $userName, $password){
+        public function     init_3($con, $userName, $password)
+        {
             $this->connection = $con;
             $this->userName = $userName;
             $this->password = $password;
         }
-        public function init_8($connection, $userName, $firstName, $lastName, $email, $password, $bd, $tpe){
+        public function     init_8($connection, $userName, $firstName, $lastName, $email, $password, $bd, $tpe)
+        {
             $this->connection = $connection;
             $this->userName = $userName;
             $this->firstName = $firstName;
@@ -40,95 +46,132 @@
         }
 
 
-        public function setId($id){
+        public function     setId(  $id)
+        {
             $this->userId = $id;
         }
-        public function setConnection($con){
+
+        public function     setConnection($con)
+        {
             $this->connection = $con;
         }
-        public function setProfilePicture($pp){
-         $this->profilePicture = $pp;
+        
+        public function     setProfilePicture($pp)
+        {
+            $this->profilePicture = $pp;
         }
+        
+        
         // creating getters
-        public function getConnection(){
+        public function     getConnection()
+        {
             return $this->connection;
         }
 
-        public function getBirthDate(){
+        public function     getBirthDate()
+        {
           return $this->userBirthDate;
         }
+        
         public function getId(){
             return $this->userId;
         }
-        public function getUserName(){
+        
+        public function     getUserName()
+        {
             return $this->userName;
         }
-        public function getFirstName(){
+        
+        public function     getFirstName()
+        {
             return $this->firstName;
         }
-        public function getLastName(){
+        
+        public function     getLastName()
+        {
             return $this->lastName;
         }
-        public function getEmail(){
+        
+        public function     getEmail()
+        {
             return $this->email;
         }
-        public function getPassword(){
+        
+        public function     getPassword()
+        {
             return $this->password;
         }
-        public function getAge(){
+
+        public function     getProfilePicture()
+        {
+          return $this->profilePicture;
+        }
+        
+        public function     getFullName()
+        {
+            return $this->getFirstName() . ' ' . $this->getLastname();
+        }
+        
+        
+        
+        public function     getProfileType()
+        {
+            return $this->profileType;
+        }
+
+        public function     getAge()
+        {
           //date in mm/dd/yyyy format; or it can be in other formats as well
            $birthDate = $this->userBirthDate;
            //explode the date to get month, day and year
            $birthDate = explode("-", $birthDate);
            //get age from date or birthdate
-           $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
-             ? ((date("Y") - $birthDate[0]) - 1)
-             : (date("Y") - $birthDate[0]));
+           $age =   (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md") // if this is true 
+                    ?   ((date("Y") - $birthDate[0]) - 1)   // do this 
+                    :   (date("Y") - $birthDate[0]));   // esle do this 
            return  $age;
         }
-        public function getProfilePicture(){
-          return $this->profilePicture;
+
+        public function     getType()
+        {
+            $query =  "SELECT a.accountTypeTitle AS accountType FROM users u INNER JOIN accounttypes a ON u.userType = a.accountTypeId WHERE u.userId = :id";
+            $stmt =   $this->getConnection()->prepare($query);
+            $params =   array(
+                ":id" => $this->getId()
+            );
+
+            $stmt->execute($params);
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $this->profileType = $res[0]['accountType'];
         }
-        public function getFullName(){
-            return $this->getFirstName() . ' ' . $this->getLastname();
-        }
-        public function getUserType(){
+
+        public function     getUserType()
+        {
           $this->getType();
           return $this->profileType;
         }
-
-
-        public function getType(){
-          $query = "SELECT a.accountTypeTitle AS accountType FROM users u INNER JOIN accounttypes a ON u.userType = a.accountTypeId WHERE u.userId = :id";
-          $stmt = $this->getConnection()->prepare($query);
-          $params = array(
-            ":id" => $this->getId()
-          );
-
-          $stmt->execute($params);
-          $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          $this->profileType = $res[0]['accountType'];
-        }
-
-        public function getUserIdFromDB(){
+        
+        public function     getUserIdFromDB()
+        {
             $query = "SELECT userId FROM users WHERE userUserName = :username AND  userPassword = :password";
             $stmt = $this->getConnection()->prepare($query);
-            $params = [
+            $params = array(
                 ':username' => $this->getUserName(),
                 ':password' => $this->getPassword()
-            ];
+            );
             $stmt->execute($params);
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $this->userId =$res[0]['userId'];
             return $this->getId();
         }
 
-        public function setUserData(){
+        public function     setUserData()
+        {
             $query = "SELECT * FROM users where userId = :id";
             $stmt = $this->getConnection()->prepare($query);
-            $params = [
+            $params = array(
                 ":id" => $this->getId()
-            ];
+            );
             $stmt->execute($params);
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -145,15 +188,15 @@
               VALUES(:userName, :firstName, :lastName, :email, :password, :birthDate, :userType)";
             $stmt = $this->getConnection()->prepare($query);
 
-            $params = [
+            $params = array(
                 ':userName' => $this->getUserName(),
                 ':firstName' => $this->getFirstName(),
                 ':lastName' => $this->getLastName(),
                 ':email' => $this->getEmail(),
                 ':password' => $this->getPassword(),
                 ':birthDate'=> $this->getBirthDate(),
-                ':userType' => $this->getType()
-            ];
+                ':userType' => $this->getProfileType()
+            );
 
             if($this->validate("register")){
                 $stmt->execute($params);
@@ -164,23 +207,27 @@
             }
         }
 
-        public function login(){
-            $query = "SELECT COUNT(*) AS c FROM users WHERE userUserName = :username AND userPassword = :password";
+        public function     login()
+        {
+            $query = "SELECT COUNT(*) AS 'count' FROM users WHERE userUserName = :username AND userPassword = :password";
             $stmt = $this->getConnection()->prepare($query);
-            $params = [
+            $params = array(
                 ':username' => $this->getUserName(),
                 'password' => $this->getPassword()
-            ];
-            $result = false ;
-            if($this->validate("login")){
+            );
 
+            $result = false ;
+            if( $this->validate("login") )
+            {
                 $stmt->execute($params);
                 $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                if($arr[0]['c'] == 1){
+                if( $arr[0]['count'] == 1 )
+                {
                     $result = true ;
                 }
-            }else{
+            }
+            else
+            {
                 echo "some of the inputs are empty !!";
             }
 
@@ -194,39 +241,54 @@
             ':profilePictureLink' => $this->getProfilePicture(),
             ':id' => $this->getId()
           );
-          try{
+
+          try
+          {
             $stmt->execute($params);
-          }catch(Exeption $e){
+          }
+          catch(Exeption $e)
+          {
             echo $e->getMessage();
           }
           // header('location: ../../profile.php');
         }
 
-        public function getPinnedComments(){
+        public function     getPinnedComments()
+        {
             $query = 'SELECT c.commentFrom AS commentFrom, c.commentContent AS commentContent FROM users u INNER JOIN pin p ON u.userId = p.pinnedTo
                                     INNER JOIN comments c ON p.commentId = c.commentId
                                     WHERE u.userId = :id2 ;';
+           
             $stmt = $this->getConnection()->prepare($query);
             $params = array(
                 ':id2' => $this->getId()
             );
+        
             $stmt->execute($params);
             $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $arr;
         }
 
-        public function validate($type){
+        public function     validate($type)
+        {
             // throw some code in here
-           if($type == "login"){
-                if($this->getUserName() == "" || $this->getPassword() == ""){
+           if($type == "login")
+           {
+                if($this->getUserName() == "" || $this->getPassword() == "")
+                {
                     $result = false ;
                 }else{
                     $result = true ;
                 }
-           }else if($type == "register"){
-                if($this->getUserName() == "" || $this->getFirstName() == "" || $this->getLastName() == "" || $this->getEmail() == "" || $this->getPassword() == "" || $this->getBirthDate() == "" ){
+           }
+           else if($type == "register")
+           {
+                if($this->getUserName() == "" || $this->getFirstName() == "" || $this->getLastName() == "" || $this->getEmail() == "" || $this->getPassword() == "" || $this->getBirthDate() == "" )
+                {
                     $result = false;
-                }else{
+                }
+                else
+                {
                     $result = true;
                 }
            }

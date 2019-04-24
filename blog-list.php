@@ -1,10 +1,16 @@
 <?php
 	require('php/config.php');
-	if(isset($_SESSION['userLogin']) && isset($_GET['books'])){
+	
+	if(isset($_SESSION['userLogin']) && isset($_GET['books']))
+	{
 		$id = $_SESSION['userLogin'];
-	}else if(isset($_SESSION['userLogin']) && !isset($_GET['books'])){
+	}
+	else if	(isset($_SESSION['userLogin']) && !isset($_GET['books']))
+	{
 		header('location: ./addbook.php');
-	}else if(!isset($_SESSION['userLogin']) && !isset($_GET['books'])){
+	}
+	else if(!isset($_SESSION['userLogin']) && !isset($_GET['books']))
+	{
 		header('location: ./');
 	}
 
@@ -33,41 +39,13 @@
 		<div class="main-wrapper">
 
 			<!--Bg Image-->
-			<div class="bg-struct bg-img"></div>
+				<?php 	require('php/view/assets/bgImg.php'); ?>
 			<!--/Bg Image-->
 
 			<div class="mdl-js-layout mdl-layout--fixed-header">
 
 				<!--Top Header-->
-				<header class="mdl-layout__header">
-					<div class="mdl-layout__header-row mdl-scroll-spy-1">
-						<!-- Title -->
-						<a href="index.html"><span class="mdl-layout-title">benjamin</span></a>
-						<div class="mdl-layout-spacer"></div>
-						<ul class="nav mdl-navigation mdl-layout--large-screen-only">
-							<li><a class="mdl-navigation__link" href="index.html#body">about</a></li>
-							<li><a class="mdl-navigation__link" href="index.html#skills_sec">skills</a></li>
-							<li><a class="mdl-navigation__link" href="index.html#portfolio_sec">portfolio</a></li>
-							<li><a class="mdl-navigation__link" href="index.html#experience_sec">experience</a></li>
-							<li><a class="mdl-navigation__link" href="index.html#education_sec">education</a></li>
-
-							<li><a class="mdl-navigation__link" href="index.html#references_sec">references</a></li>
-							<li><a class="mdl-navigation__link" href="index.html#contact_sec">contact</a></li>
-						</ul>
-						<!-- Right aligned menu below button -->
-						<button id="demo-menu-lower-right"
-								class="mdl-button mdl-js-button mdl-button--icon ver-more-btn">
-						  <i class="material-icons">more_vert</i>
-						</button>
-
-						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-							data-mdl-for="demo-menu-lower-right">
-							<li class="mdl-menu__item"><a href="#"><i class="zmdi zmdi-download font-red pr-10"></i>Download CV</a></li>
-							<li class="mdl-menu__item"><a href="mailto:benjaminsirje49@company.com"><i class="zmdi zmdi-email-open font-green pr-10"></i>Contact Me</a></li>
-							<li class="mdl-menu__item"><a href="callto:12345678910"><i class="zmdi zmdi-phone  font-blue  pr-10"></i>+1 234 567 89 10</a></li>
-						</ul>
-					</div>
-				</header>
+				<?php	require("php/view/assets/navBar.php"); ?>
 				<!--/Top Header-->
 
 				<!--Left Sidebar-->
@@ -80,11 +58,7 @@
 						<!--Blog Sec-->
 						<section id="blog_sec" class="blog-sec mt-180 mt-sm-120">
 							<h2 class="mb-30">blog</h2>
-
-							<?php
-								require("php/view/gallery/booksPreview.php");
-							?>
-Q
+							<?php	require("php/view/gallery/booksPreview.php"); ?>
 						</section>
 
 						<!--/Blog Sec-->

@@ -1,0 +1,1 @@
+<div class="bg-struct bg-img"></div>

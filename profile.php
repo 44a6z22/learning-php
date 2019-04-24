@@ -1,10 +1,16 @@
 <?php
 	include "php/config.php";
-	if(!isset($_SESSION['userLogin']) && !isset($_GET['userId'])){
-		header('location: ./');
-	}else if(isset($_GET['userId'])){
+
+	if( !isset( $_SESSION['userLogin'] ) && !isset( $_GET['userId'] ) )
+	{
+		header('location: ./');	
+	}
+	else if( isset( $_GET['userId'] ) )
+	{
 		$id = $_GET['userId'];
-	}else if ($_SESSION['userLogin']){
+	}
+	else if( $_SESSION['userLogin'] )
+	{
 		$id = $_SESSION['userLogin'];
 	}
 
@@ -12,7 +18,7 @@
 	$user->setId($id);
 	$user->setUserData();
 
-  $booksPath = "php/upload/".$id."/booksPictures/";
+  	$booksPath = "php/upload/".$id."/booksPictures/";
 ?>
 
 <!DOCTYPE html>
@@ -26,26 +32,26 @@
 	<body id="body" data-ng-app="contactApp">
 		<!--Main Wrapper-->
 		<div class="main-wrapper">
-			<!--Bg Image-->
-			<div class="bg-struct bg-img"></div>
-			<!--/Bg Image-->
+			<!--Background Image-->
+			<?php require('php/view/assets/bgImg.php'); ?>
+			<!--/Background Image-->
 
 			<div class="mdl-js-layout mdl-layout--fixed-header">
 
 				<!--Top Header-->
-					<?php
-						require("php/view/assets/navBar.php");
-					?>
+					<?php require("php/view/assets/navBar.php"); ?>
 				<!--/Top Header-->
 
 				<!--Left Sidebar-->
 					<?php
 						$id = $_SESSION['userLogin'];
-						if(isset($_SESSION["userLogin"]))
+						if( isset( $_SESSION["userLogin"] ) )
 							require("php/view/assets/leftSideBar.php");
 
-						if(isset($_GET["userId"])) $id = $_GET["userId"];
-							$user->setUserData($connection, $id);
+						if( isset( $_GET["userId"] ) ) 
+							$id = $_GET["userId"];
+						
+						$user->setUserData($connection, $id);
 
 					?>
 				<!--/Left Sidebar-->
@@ -64,7 +70,24 @@
 										<div class="row">
 											<div class="col-md-5 col-xs-12 mb-30">
 												<div class="candidate-img mb-35">
+
+													<form action="php/controller/uploadHandler.php" method="POST" enctype="multipart/form-data">
+													
+													
 													<img src="<?php echo "php/upload/".$id."/profilePictures/".$user->getProfilepicture();  ?>" style="height:230px; width:230px;border-radius:50%;" alt="">
+														
+													<div class="custom-file ">
+														<input type="file" name="photo" class="custom-file-input">
+														<label class="custom-file-label" for="inputGroupFile01">
+														</label>
+													</div>
+																							
+														<input type="submit" name="addBook" class="btn btn-primary btn-block" value="update">
+													</form>
+
+
+																									
+												
 												</div>
 											</div>
 											<div class="col-md-7 col-xs-12">
@@ -73,7 +96,8 @@
 													<h5 class="mt-20 font-grey"></h5>
 
 															<?php
-																if( isset($_SESSION['userLogin']) && $id != $_SESSION['userLogin']){
+																if( isset( $_SESSION['userLogin'] ) && $id != $_SESSION['userLogin'] )
+																{
 															?>
 																<div class="mt-30">
 																	<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
@@ -136,12 +160,18 @@
 							</div>
 						</section>
 						<!--/Books Sec-->
+					
+				        <!-- comments Sec-->
+						<section id="comments_sec">
 
-
+						
+						</section>
+						<!--/comments Sec-->
+						
 						<!--Footer Sec-->
 						<footer class="footer-sec sec-pad-top-sm sec-pad-bottom text-center">
-							<h4>thank you for visiting.</h4>
-							<p class="mt-10">Hencework 2017. All rights reserved.</p>
+							<!-- <h4>thank you for visiting.</h4>
+							<p class="mt-10">Hencework 2017. All rights reserved.</p> -->
 						</footer>
 						<!--Footer Sec-->
 					</div>
