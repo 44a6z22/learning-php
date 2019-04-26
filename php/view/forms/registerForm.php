@@ -1,6 +1,6 @@
 <div class="col-md-4">
     <h2> inscription</h2>
-    <form action="php/controller/registerHandler.php" method="POST" id="register">
+    <form action="php/controller/accountActions/registerHandler.php" method="POST" id="register">
         <div class="form-group">
             <input type="text" name="username" class="form-control" placeholder="Username" required>
         </div>

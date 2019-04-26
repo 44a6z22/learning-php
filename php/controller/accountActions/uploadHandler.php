@@ -1,5 +1,5 @@
 <?php
-    require("../config.php");
+    require("../../config.php");
 
 
     // Check if the form was submitted
@@ -44,14 +44,14 @@
                     }else{
 
                     }
-                    header('location: ../../');
+                    header('location: ' . $_INDEX);
 
                     return 1;
             } else{
                 return 0;
             }
         } else{
-            header("location: ../../?Error=" . $_FILES["photo"]["error"]);
+            header("location: " . $_INDEX . "?Error=" . $_FILES["photo"]["error"]);
         }
     }
 ?>

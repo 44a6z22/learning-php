@@ -5,7 +5,7 @@
     if(isset($_SESSION['userLogin']))
     {
         unset($_SESSION['userLogin']);
-        header('location: ../../');
+        header('location:' . $_INDEX);
     }
     
     // Destroying session

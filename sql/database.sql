@@ -26,6 +26,7 @@ CREATE TABLE books(
     bookAuthor INT ,
     bookPages INT,
     bookUploadDate DATE,
+    bookPicture varchar(50),
     FOREIGN KEY (bookAuthor) REFERENCES users(userId)
 );
 
@@ -62,9 +63,6 @@ CREATE TABLE pin(
     FOREIGN KEY (commentId) REFERENCES comments(commentId)
 );
 
-ALTER TABLE books
-	ADD COLUMN bookPicture varchar(50) ;
-    select * from  books;
 -- INSERTS ---
 
 INSERT INTO accountTypes VALUES(NULL, "ADMIN"),
@@ -104,8 +102,10 @@ INSERT INTO pin VALUES 	(NULL, 1, 22),
                         (NULL, 5, 25),
 						(NULL, 5, 26),
                         (NULL, 5, 27);
+use library ;
 
-
+alter table comments 
+	add column likes int not null default 0;
 
 -- JOINS --
 

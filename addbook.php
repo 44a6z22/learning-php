@@ -41,3 +41,5 @@
 		</div>
 	</div>
 	<?php	require('php/view/assets/footer.php'); ?>
+
+

@@ -23,7 +23,7 @@
       data-mdl-for="demo-menu-lower-right">
       <li class="mdl-menu__item"><a href="addbook.php"><i class="zmdi zmdi-upload font-blue pr-10"></i>Add book</a></li>
 
-      <li class="mdl-menu__item"><a href="php/controller/logoutHandler.php"><i class="lower pr-10 font-red material-icons">power_settings_new</i>logout</a></li>
+      <li class="mdl-menu__item"><a href="php/controller/accountActions/logoutHandler.php"><i class="lower pr-10 font-red material-icons">power_settings_new</i>logout</a></li>
     </ul>
     <?php
       }

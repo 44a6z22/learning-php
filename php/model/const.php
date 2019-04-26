@@ -10,5 +10,10 @@
         public static 	$PARTIALY_UPLOADDED = "The uploaded file was only partially uploaded.";
         public static 	$NO_FILE = "No file was uploaded.";
 
+
+        // overAll vars 
+        public static   $NO_BOOKS = "this users haven't uploaded any books  yet.";
+        public static   $PIN_FAIL = "failled to pin this comment.";
+
     }
 ?>

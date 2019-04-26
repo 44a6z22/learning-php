@@ -25,7 +25,7 @@
                                 $user1->setUserData();
                             ?>
                             <span class="ref-desgn block">
-                                <?php   echo $user1->getFullName(); ?>
+                            - <?php   echo $user1->getFullName(); ?>
                             </span>
                         </div>
 

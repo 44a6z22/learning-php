@@ -1,5 +1,5 @@
 <div class="col-md-4">
-    <form action="php/controller/uploadHandler.php" method="POST" enctype="multipart/form-data">
+    <form action="php/controller/accountActions/uploadHandler.php" method="POST" enctype="multipart/form-data">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <input type="submit" name="upload" class=" btn btn-primary" value="Upload">

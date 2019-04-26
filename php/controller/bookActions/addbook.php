@@ -1,5 +1,5 @@
 <?php
-  require("../config.php");
+  require("../../config.php");
   // Check if file was uploaded without errors
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 				$book->setPages($_POST['pages']);
 				$book->setPicture($filename);
 				$book->add();
-				header('location: ../../addbook.php');
+				header('location: ' . $_INDEX . 'addbook.php');
 			}
 			else
 			{

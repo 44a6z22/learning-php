@@ -1,5 +1,5 @@
 <?php
-    require("../config.php");
+    require("../../config.php");
 
     if(isset($_POST['login']))
     {
@@ -19,16 +19,16 @@
                     mkdir("../upload/".$_SESSION['userLogin'], 0777, true);
                 }
 
-                header('location: ../../');
+                header('location: ' . $_INDEX);
             }
             else
             {
-                header('location: ../../register.php?Error=0');
+                header('location: ' . $_INDEX . 'register.php?Error=0');
             }
         }
         else
         {
-            header('location:../../register.php?Error=10');
+            header('location: ' . $_INDEX . 'register.php?Error=10');
         }
 
     }

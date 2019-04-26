@@ -4,5 +4,5 @@
         $name = "../upload/".$_GET['name'];
         unlink($name) or die('couldn\'t delete the file');
     }
-    header("location: ../../");
+    header("location:" . $_INDEX);
 ?>

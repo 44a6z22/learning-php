@@ -5,20 +5,25 @@
 	{
 		header('location: ./');	
 	}
-	else if( isset( $_GET['userId'] ) )
+	else if( isset( $_GET['userId'] ) && isset( $_SESSION['userLogin'] ) ||  isset( $_GET['userId'] ) && !isset( $_SESSION['userLogin'] ))
 	{
 		$id = $_GET['userId'];
 	}
-	else if( $_SESSION['userLogin'] )
+	else 
 	{
-		$id = $_SESSION['userLogin'];
+		$id = $_SESSION['userLogin']; 
 	}
 
+	if( !$id )
+	{
+		header('location: ./');
+	}
+	
 	$user = new User($connection);
 	$user->setId($id);
 	$user->setUserData();
 
-  	$booksPath = "php/upload/".$id."/booksPictures/";
+  	$booksPath = "php/upload/" . $id . "/booksPictures/";
 ?>
 
 <!DOCTYPE html>
@@ -27,30 +32,37 @@
 		<meta charset="UTF-8" />
 		<title><?php echo $user->getFullName(); ?></title>
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/coments.css" />
 	</head>
 
 	<body id="body" data-ng-app="contactApp">
 		<!--Main Wrapper-->
 		<div class="main-wrapper">
 			<!--Background Image-->
-			<?php require('php/view/assets/bgImg.php'); ?>
+			<?php 
+				require('php/view/assets/bgImg.php'); 
+			?>
 			<!--/Background Image-->
 
 			<div class="mdl-js-layout mdl-layout--fixed-header">
 
 				<!--Top Header-->
-					<?php require("php/view/assets/navBar.php"); ?>
+					<?php 
+						require("php/view/assets/navBar.php") ; 
+					?>
 				<!--/Top Header-->
 
 				<!--Left Sidebar-->
 					<?php
 						$id = $_SESSION['userLogin'];
-						if( isset( $_SESSION["userLogin"] ) )
+						if( isset( $_SESSION["userLogin"] ) && !isset( $_GET['userId'] ) )
 							require("php/view/assets/leftSideBar.php");
 
-						if( isset( $_GET["userId"] ) ) 
+						if( isset( $_GET["userId"] ) )
+						{
 							$id = $_GET["userId"];
-						
+						}
+
 						$user->setUserData($connection, $id);
 
 					?>
@@ -71,65 +83,69 @@
 											<div class="col-md-5 col-xs-12 mb-30">
 												<div class="candidate-img mb-35">
 
-													<form action="php/controller/uploadHandler.php" method="POST" enctype="multipart/form-data">
+													<form action="php/controller/accountActions/uploadHandler.php" method="POST" enctype="multipart/form-data">
 													
-													
-													<img src="<?php echo "php/upload/".$id."/profilePictures/".$user->getProfilepicture();  ?>" style="height:230px; width:230px;border-radius:50%;" alt="">
+														<img src="<?php echo "php/upload/" . $id . "/profilePictures/" . $user->getProfilepicture() ;  ?>" style="height:230px; width:230px;border-radius:50%;" alt="">
 														
-													<div class="custom-file ">
-														<input type="file" name="photo" class="custom-file-input">
-														<label class="custom-file-label" for="inputGroupFile01">
-														</label>
-													</div>
+														<div class="custom-file ">
+															<input type="file" name="photo" class="custom-file-input">
+															<label class="custom-file-label" for="inputGroupFile01">
+															</label>
+														</div>
 																							
 														<input type="submit" name="addBook" class="btn btn-primary btn-block" value="update">
 													</form>
 
-
-																									
-												
 												</div>
 											</div>
 											<div class="col-md-7 col-xs-12">
 												<div class="info-wrap">
-													<h1><?php echo $user->getFullName();?></h1>
+													<h1><?php echo	$user->getFullName(); ?></h1>
 													<h5 class="mt-20 font-grey"></h5>
 
-															<?php
-																if( isset( $_SESSION['userLogin'] ) && $id != $_SESSION['userLogin'] )
-																{
-															?>
-																<div class="mt-30">
-																	<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
-																	<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-green font-white" href="#contact_sec" data-scroll>contact</a>
-																</div>
-															<?php
-																}
-															?>
-
-
+													<?php
+														if( isset( $_SESSION['userLogin'] ) && $id != $_SESSION['userLogin'] )
+														{
+													?>
+														<div class="mt-30">
+															<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
+															<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-green font-white" href="#contact_sec" data-scroll>contact</a>
+														</div>
+													<?php
+														}
+													?>
 												</div>
 												<ul class="profile-wrap mt-50">
 													<li>
 														<div class="profile-title">age</div>
-														<div class="profile-desc"><?php echo $user->getAge();?></div>
+														<div class="profile-desc">
+															<?php 
+																echo $user->getAge();
+															?>
+														</div>
 													</li>
 													<li>
 														<div class="profile-title">Username</div>
 														<div class="profile-desc">
-															<?php echo $user->getUserName();?>
+															<?php 
+																echo	$user->getUserName() ;
+															?>
 														</div>
 													</li>
 													<li>
 														<div class="profile-title">email</div>
 														<div class="profile-desc">
-															<?php echo $user->getEmail();?>
+															<?php 
+																echo $user->getEmail() ;
+															?>
 														</div>
 													</li>
 													<li>
 														<div class="profile-title">Status</div>
 														<div class="profile-desc">
-															<?php print_r($user->getUserType())	;?>
+															<?php 
+																echo 	$user->getUserType() ;
+															?>
 														</div>
 													</li>
 
@@ -144,7 +160,9 @@
 
 
 						<!--References Sec-->
-						<?php  require('php/view/assets/testos.php');?>
+						<?php 
+							require('php/view/assets/testos.php');
+						?>
 						<!--/References Sec-->
 
 						<!--Books Sec-->
@@ -162,9 +180,34 @@
 						<!--/Books Sec-->
 					
 				        <!-- comments Sec-->
-						<section id="comments_sec">
+						<section id="comments_sec" class="comment_block">
+                                <?php
+                                    if(isset($_GET['userId']) && $_GET['userId'] != $_SESSION['userLogin'])
+                                    {
+                                ?>
+                                    <div class="create_new_comment ">
+                                        <!-- current #{user} avatar -->
+                                        <div class="user_avatar ">
+                                            <img src="<?php echo "php/upload/" . $profileOwner->getId() . "/profilePictures/" . $profileOwner->getProfilepicture() ;  ?>">
+                                        </div>
+                                        
+                                        <!-- the input field -->
+										<form action="php/controller/commentsActions/addComment.php" method="POST" >
+											<div class="input_comment">
+												<input type="text" name="reciverId" value="<?php echo $_GET['userId']; ?>"  hidden >
+                                                <input type="text" name="commentContent" placeholder="Join the conversation..">
+												<input type="submit" name="submitComment" class="btn btn-primary" value="comment" hidden >
+											</div>
+										</form>
+                                    </div>
+                                <?php
+                                    }
+                                ?>
 
-						
+                                <?php
+                                    require("php/view/gallery/comments.php");
+                                ?> 
+
 						</section>
 						<!--/comments Sec-->
 						
