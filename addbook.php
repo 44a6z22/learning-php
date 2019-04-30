@@ -19,7 +19,7 @@
 		<div class="row justify-content-center" style="margin-top : 100px;">
 			<div class="col-md-6 ">
 				<!--  -->
-				<form action="php/controller/addBook.php" method="POST" enctype="multipart/form-data">
+				<form action="php/controller/bookActions/addBook.php" method="POST" enctype="multipart/form-data">
 
 					<div class="form-group">
 						<input type="text" name="bookTitle" class="form-control" placeholder="Book title" required>

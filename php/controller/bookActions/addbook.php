@@ -22,11 +22,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			if($folder != $_SESSION['userLogin'])
 			{
 				$folder = $_SESSION['userLogin']."/".$folder;
-				if (!file_exists("../upload/".$folder))
-					mkdir("../upload/".$folder, 0777, true);
+				if (!file_exists("../../upload/".$folder))
+					mkdir("../../upload/".$folder, 0777, true);
 			}
 			
-			move_uploaded_file($_FILES["bookPhoto"]["tmp_name"], "../upload/".$_SESSION['userLogin']."/booksPictures/" . $filename);
+			move_uploaded_file($_FILES["bookPhoto"]["tmp_name"], "../../upload/".$_SESSION['userLogin']."/booksPictures/" . $filename);
 
 			if(isset($_POST['addBook']))
 			{

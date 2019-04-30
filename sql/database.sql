@@ -167,3 +167,47 @@ ALTER TABLE users
 	ADD COLUMN userProfilePicture VARCHAR(50) ;
 
 SELECT bookPicture, bookpages FROM users u INNER JOIN books b ON u.userId = b.bookAuthor WHERE u.userId = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE DATABASE testlogin; 
+use testlogin;
+CREATE TABLE usr(
+	id int primary key not null auto_increment, 
+    username varchar(244), 
+    userPassword varchar(244)
+);
+
+select * from usr;
+
+use library;
+select * from followers ;
+
+
+SELECT count(*) FROM users u inner join followers f on f.followedId = u.userId WHERE u.userId = 4;
+
+CREATE database testusers; 
+use testusers ; 
+CREATE TABLE users(
+	ID int primary key not null auto_increment, 
+    firstName varchar(255),
+    lastName varchar(255),
+    email varchar(255),
+    passwords varchar(255)
+);

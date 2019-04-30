@@ -58,7 +58,7 @@
 						<!--Blog Sec-->
 						<section id="blog_sec" class="blog-sec mt-180 mt-sm-120">
 							<h2 class="mb-30 font-white">books</h2>
-							<?php	require("php/view/gallery/booksPreview.php"); ?>
+							<?php	require("php/view/gallery/booksShowCase.php"); ?>
 						</section>
 
 						<!--/Blog Sec-->

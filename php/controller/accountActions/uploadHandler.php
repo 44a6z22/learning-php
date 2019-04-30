@@ -26,25 +26,28 @@
                     // verify if a folder is already exist or not
                     if($folder != $_SESSION['userLogin']){
                         $folder = $_SESSION['userLogin']."/".$folder;
-                        if (!file_exists("../upload/".$folder)) mkdir("../upload/".$folder, 0777, true);
+                        if (!file_exists("../../upload/".$folder)) mkdir("../../upload/".$folder, 0777, true);
                     }
 
-                    move_uploaded_file($_FILES["photo"]["tmp_name"], "../upload/".$folder."/" . $filename);
+                    move_uploaded_file($_FILES["photo"]["tmp_name"], "../../upload/".$folder."/" . $filename);
                     if($connection != NULL){
-                        echo "break ";
-                      $user3 = new User($connection);
-                      $user3->setId($_SESSION['userLogin']);
-                      $user3->setProfilePicture($filename);
-                      
-                      try{
-                        $user3->addProfilePicture();
-                      }catch(Exeption $e){
-                        echo $e->getMessage();
-                      }
+
+                        $user3 = new User($connection);
+                        $user3->setId($_SESSION['userLogin']);
+                        $user3->setProfilePicture($filename);
+                        
+                        try
+                        {
+                            $user3->addProfilePicture();
+                        }
+                        catch(Exeption $e)
+                        {
+                            echo $e->getMessage();
+                        }
                     }else{
 
                     }
-                    header('location: ' . $_INDEX);
+                    header('location: ../../../');
 
                     return 1;
             } else{

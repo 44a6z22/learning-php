@@ -1,9 +1,10 @@
 <?php
     
     require("php/config.php");
+
     if(isset($_SESSION['userLogin']))
     {
-        header('location: ./');
+        header('location: ./profile.php');
     }
 ?>
 

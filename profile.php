@@ -55,7 +55,7 @@
 				<!--Left Sidebar-->
 					<?php
 						$id = $_SESSION['userLogin'];
-						if( isset( $_SESSION["userLogin"] ) && !isset( $_GET['userId'] ) )
+						if(!isset( $_GET['userId'] ) || $_GET['userId'] ==  $_SESSION['userLogin'])
 							require("php/view/assets/leftSideBar.php");
 
 						if( isset( $_GET["userId"] ) )
@@ -67,7 +67,6 @@
 
 					?>
 				<!--/Left Sidebar-->
-
 
 
 				<!--Main Content-->
@@ -83,18 +82,25 @@
 											<div class="col-md-5 col-xs-12 mb-30">
 												<div class="candidate-img mb-35">
 
-													<form action="php/controller/accountActions/uploadHandler.php" method="POST" enctype="multipart/form-data">
+													<img src="<?php echo "php/upload/" . $id . "/profilePictures/" . $user->getProfilepicture() ;  ?>" style="height:230px; width:230px;border-radius:50%;" alt="">
 													
-														<img src="<?php echo "php/upload/" . $id . "/profilePictures/" . $user->getProfilepicture() ;  ?>" style="height:230px; width:230px;border-radius:50%;" alt="">
 														
-														<div class="custom-file ">
-															<input type="file" name="photo" class="custom-file-input">
-															<label class="custom-file-label" for="inputGroupFile01">
-															</label>
-														</div>
+														<?php
+															if(	!isset( $_GET['userId'] ) || $_GET['userId'] == $_SESSION['userLogin'] )
+															{
+														?>
+															<form action="php/controller/accountActions/uploadHandler.php" method="POST" enctype="multipart/form-data">
+																<div class="custom-file ">
+																	<input type="file" name="photo" class="custom-file-input">
+																	<label class="custom-file-label" for="inputGroupFile01">
+																	</label>
+																</div>
+																<input type="submit" name="addBook" class="btn btn-primary btn-block" value="update">
+															</form>
+														<?php
+															}
+														?>
 																							
-														<input type="submit" name="addBook" class="btn btn-primary btn-block" value="update">
-													</form>
 
 												</div>
 											</div>
@@ -108,7 +114,7 @@
 														{
 													?>
 														<div class="mt-30">
-															<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="#">follow</a>
+															<a id="download_cv" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  bg-blue font-white mr-10" href="php/controller/accountActions/follows.php?follow=<?php echo $_GET['userId'] ;?>">follow</a>
 															<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-green font-white" href="#contact_sec" data-scroll>contact</a>
 														</div>
 													<?php
@@ -170,7 +176,7 @@
 							<h2 class="mb-30">books</h2>
 							<div class="row">
 								<?php
-									require("php/view/gallery/booksPreview.php");
+									require("php/view/gallery/booksShowCase.php");
 								?>
 							</div>
 							<div class="text-center mt-20 mb-30">

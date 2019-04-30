@@ -14,9 +14,9 @@
                 $_SESSION['userFullName'] = $user->getFullName();
              
                 //  Creating a folder for the user on his first login to the website
-                if (!file_exists("../upload/".$_SESSION['userLogin']))  // cheking if a folder is already exist or not
+                if (!file_exists("../../upload/".$_SESSION['userLogin']))  // cheking if a folder is already exist or not
                 {
-                    mkdir("../upload/".$_SESSION['userLogin'], 0777, true);
+                    mkdir("../../upload/".$_SESSION['userLogin'], 0777, true);
                 }
 
                 header('location: ' . $_INDEX);

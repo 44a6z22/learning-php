@@ -294,5 +294,20 @@
            }
            return $result;
         }
+    
+    
+        public function     follows($account)
+        {
+            $query = "INSERT INTO followers VALUES (:this, :that);"; 
+            $stmt = $this->getConnection()->prepare($query);
+            
+            $params = array(
+                ':this' => $this->getId(),
+                ':that' => $account->getId()
+            );
+    
+            $stmt->execute($params);
+            
+        }
     }
 ?>

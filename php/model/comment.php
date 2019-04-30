@@ -1,17 +1,20 @@
 <?php
     class   Comment
     {
-        private     $connection ; 
+        private     $connection; 
+
         private     $commentId; 
         private     $commentSender; 
         private     $commentReciver; 
         private     $commentContent ;
-        private     $likes; 
+        private     $likes;
         
+      
         // making a constructor for the user Class
         public function     __construct()
         {
             $args = func_get_args();
+
             $num = func_num_args();
             
             if( method_exists( $this, $f = 'init_' . $num ) ) 
@@ -117,7 +120,7 @@
             
             $stmt->execute($params);
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+            //
             return $res;
         }
         
