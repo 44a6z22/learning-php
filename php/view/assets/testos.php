@@ -12,16 +12,15 @@
                 <div class="mdl-card mdl-shadow--2dp border-top-yellow pa-35">
                     <div class="testimonial-carousel">
                         <?php
-                            $i = 0 ;
-                            while(sizeOf($results) > $i)
+                            foreach ( $results as $res)
                             {
                         ?>
                         <div>
                             <blockquote>
-                            <?php   echo $results[$i]['commentContent']; ?>
+                            <?php   echo $res['commentContent']; ?>
                             </blockquote>
                             <?php
-                                $user1->setId($results[$i]['commentFrom']);
+                                $user1->setId($res['commentFrom']);
                                 $user1->setUserData();
                             ?>
                             <span class="ref-desgn block">
@@ -30,7 +29,6 @@
                         </div>
 
                         <?php
-                                $i++;
                             }
                         ?>
                         </div>

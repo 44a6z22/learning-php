@@ -16,4 +16,12 @@
         public static   $PIN_FAIL = "failled to pin this comment.";
 
     }
+    Class EMAIL{
+        
+        public static   $MAIL_HEADER ; 
+        public static   $MAIL_MESSAGE = "your account has been created successfuly please comfirm your registration Via This link"; 
+        public static   $MAIL_REGISTER_SUBJECT = "Comfirm your registration" ; 
+        
+
+    }
 ?>

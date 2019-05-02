@@ -4,6 +4,7 @@
     require("model/user.php");
 	require("model/book.php");
 	require("model/comment.php");
+	require("model/mail.php");
 	
 	session_start();
 	$_INDEX = "../../../";

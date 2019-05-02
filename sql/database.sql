@@ -197,7 +197,9 @@ CREATE TABLE usr(
 select * from usr;
 
 use library;
-select * from followers ;
+	select * from followers ;
+	alter table users 
+		add column status varchar(255) default 'INACTIVE' ;
 
 
 SELECT count(*) FROM users u inner join followers f on f.followedId = u.userId WHERE u.userId = 4;

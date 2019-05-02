@@ -1,3 +1,3 @@
-<?php
-    mail("parvez1487@gmail.com","Success","Send mail from localhost using PHP");
+<?php 
+    echo uniqid('user', PASSWORD_BCRYPT);
 ?>

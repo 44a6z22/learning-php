@@ -11,6 +11,7 @@
         private $userBirthDate ; // YYYY/MM/DD
         private $profilePicture;
         private $profileType;
+        private $uniqId ; 
 
         // making a constructor for the user Class
         public function     __construct()
@@ -33,7 +34,7 @@
             $this->userName = $userName;
             $this->password = $password;
         }
-        public function     init_8($connection, $userName, $firstName, $lastName, $email, $password, $bd, $tpe)
+        public function     init_9($connection, $userName, $firstName, $lastName, $email, $password, $bd, $tpe, $uniqId)
         {
             $this->connection = $connection;
             $this->userName = $userName;
@@ -43,6 +44,7 @@
             $this->password = $password;
             $this->userBirthDate = $bd;
             $this->profileType = $tpe;
+            $this->uniqId = $uniqId; 
         }
 
 
@@ -61,6 +63,10 @@
             $this->profilePicture = $pp;
         }
         
+        public function     setUniqId($ui)
+        {
+          $this->uniqId = $ui;
+        }
         
         // creating getters
         public function     getConnection()
@@ -107,6 +113,12 @@
           return $this->profilePicture;
         }
         
+        public function     getUniqId()
+        {
+          return $this->uniqId;
+        }
+        
+
         public function     getFullName()
         {
             return $this->getFirstName() . ' ' . $this->getLastname();
@@ -181,11 +193,12 @@
             $this->email = $res[0]['userEmail'];
             $this->userBirthDate = $res[0]['userBirthDate'];
             $this->profilePicture = $res[0]['userProfilePicture'];
+            $this->uniqId = $res[0]['uniqId'];
         }
 
          public function register(){
-            $query = "INSERT INTO users(userUserName, userFirstName, userLastName, userEmail, userPassword, userBirthDate, userType)
-              VALUES(:userName, :firstName, :lastName, :email, :password, :birthDate, :userType)";
+            $query = "INSERT INTO users(userUserName, userFirstName, userLastName, userEmail, userPassword, userBirthDate, userType, uniqId)
+              VALUES(:userName, :firstName, :lastName, :email, :password, :birthDate, :userType, :uniqId )";
             $stmt = $this->getConnection()->prepare($query);
 
             $params = array(
@@ -195,21 +208,22 @@
                 ':email' => $this->getEmail(),
                 ':password' => $this->getPassword(),
                 ':birthDate'=> $this->getBirthDate(),
-                ':userType' => $this->getProfileType()
+                ':userType' => $this->getProfileType(), 
+                ':uniqId' => $this->getUniqId()
             );
 
             if($this->validate("register")){
                 $stmt->execute($params);
-                header('location: ../../');
+                return 1; 
             }else{
-
-                header('location: ../../register.php?action=register&Error=10');
+                return 0; 
+                
             }
         }
 
         public function     login()
         {
-            $query = "SELECT COUNT(*) AS 'count' FROM users WHERE userUserName = :username AND userPassword = :password";
+            $query = "SELECT COUNT(*) AS 'count' FROM users WHERE userUserName = :username AND userPassword = :password AND status = 'ACTIVE';";
             $stmt = $this->getConnection()->prepare($query);
             $params = array(
                 ':username' => $this->getUserName(),
@@ -233,6 +247,21 @@
 
             return $result;
         }
+
+        public function     updateStatus()
+        {
+            $query = "UPDATE users SET status = 'ACTIVE' WHERE uniqId = :ui;"; 
+            $stmt = $this->getConnection()->prepare($query); 
+
+            $params = array(
+                ':ui' => $this->getUniqId()
+            );
+
+            if ($stmt->execute($params)) return true ; 
+                
+            return false;
+
+        } 
 
         public function addProfilePicture(){
           $query = "UPDATE users SET userProfilePicture = :profilePictureLink WHERE userId = :id;";
@@ -269,7 +298,7 @@
             return $arr;
         }
 
-        public function     validate($type)
+        private function     validate($type)
         {
             // throw some code in here
            if($type == "login")
